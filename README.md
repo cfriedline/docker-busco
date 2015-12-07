@@ -4,6 +4,8 @@ You'll need to have a working [docker](http://www.docker.com) installation.
 
 `Clone` this repo, `cd` to the directory, type `make`
 
+The build is also available on Docker Hub: `docker pull cfriedline/busco`
+
 ## Execute with [docker](http:///www.docker.com)
 
 ```bash
