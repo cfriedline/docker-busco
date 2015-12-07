@@ -1,10 +1,10 @@
 ## Build the image
 
-You'll need to have a working docker installation.
+You'll need to have a working [docker](http://www.docker.com) installation.
 
 `Clone` this repo, `cd` to the directory, type `make`
 
-## Execute with docker
+## Execute with [docker](http:///www.docker.com)
 
 ```bash
 docker run \
