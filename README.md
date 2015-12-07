@@ -38,3 +38,18 @@ Make sure to consult the BUSCO [manual](http://busco.ezlab.org/files/BUSCO_userg
 Additional convenience make targets are also provided (e.g., `shell`)
 
 Enjoy!
+
+`BibTeX` citation for `BUSCO`
+
+```
+@article{Simao:2015kk,
+author = {Sim{\~a}o, Felipe A and Waterhouse, Robert M and Ioannidis, Panagiotis and Kriventseva, Evgenia V and Zdobnov, Evgeny M},
+title = {{BUSCO: assessing genome assembly and annotation completeness with single-copy orthologs.}},
+journal = {Bioinformatics},
+year = {2015},
+volume = {31},
+number = {19},
+pages = {3210--3212},
+month = oct
+}
+```
