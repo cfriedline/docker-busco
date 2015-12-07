@@ -17,7 +17,8 @@ python3 /busco/BUSCO_v1.1b1/BUSCO_v1.1b1.py \
 -l /busco/arthropoda \
 -m genome \
 -c 8 \
--e 0.001
+-e 0.001 \
+-f
 ```
 
 This command does the following, YMMV:
@@ -29,6 +30,7 @@ This command does the following, YMMV:
 5. Runs the genome mode using `-m` (others are `ogs` and `trans`)
 6. Sets the number of CPUs (`-c`)
 7. Sets an e-value cutoff (`-e`)
+8. Forces overwrite (`-f`)
 
 Make sure to consult the BUSCO [manual](http://busco.ezlab.org/files/BUSCO_userguide.pdf) and
 [README](http://busco.ezlab.org/files/README.html)
