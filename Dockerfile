@@ -66,12 +66,14 @@ RUN \
     wget http://busco.ezlab.org/files/BUSCO_v1.1b1.tar.gz && \
     tar zxvf BUSCO_v1.1b1.tar.gz
 
-ENV AUGUSTUS_CONFIG_PATH=/busco/augustus-3.2.1/config
+ENV AUGUSTUS_CONFIG_PATH=/busco/augustus-3.2.1/config/
 ENV PATH=/busco/ncbi-blast-2.2.30+/bin:/busco/augustus-3.2.1/bin:$PATH
 
 VOLUME /input
 
 VOLUME /results
+
+COPY BUSCO_v1.1b1.py /busco/BUSCO_v1.1b1
 
 WORKDIR /results
 
