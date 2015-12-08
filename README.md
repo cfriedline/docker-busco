@@ -20,7 +20,8 @@ python3 /busco/BUSCO_v1.1b1/BUSCO_v1.1b1.py \
 -m genome \
 -c 8 \
 -e 0.001 \
--f
+-f \
+-sp generic
 ```
 
 This command does the following, YMMV:
