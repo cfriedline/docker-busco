@@ -23,13 +23,13 @@
 
 #                       - lineages may be specified using the full path (e.g. -l /path/to/lineage)
 #                      - added threading support (signficant speed increase)
-#                      - added checks for the necessary programs before running BUSCO 
+#                      - added checks for the necessary programs before running BUSCO
 
 
 
 #-------------------------------------------------------------------------------#
 
-import os 
+import os
 import argparse
 from collections import deque
 import time
@@ -51,7 +51,7 @@ parser.add_argument('--ev','-e','-ev',metavar='N', type=float, help='E-value cut
 parser.add_argument('-m','--mode',metavar='mode', type=str, help='which module to run the analysis to run, valid modes are \'all\'(genome assembly), \'OGS\' (gene set / proteome) and \'Trans\' (transcriptome).\n Defaults to \'all\'')
 parser.add_argument('-l','--clade','--lineage',metavar='lineage', type=str, help='Which BUSCO lineage to be used.')	#lineage
 parser.add_argument('-f', action='store_true',default=False, dest='force',help='Force rewrting of existing files. Must be used when output files with the provided name already exist.')
-parser.add_argument('-sp','--species',default='generic',metavar='species',type=str,help='Name of existing Augustus species gene finding metaparameters. (Default: generic)')	
+parser.add_argument('-sp','--species',default='generic',metavar='species',type=str,help='Name of existing Augustus species gene finding metaparameters. (Default: generic)')
 parser.add_argument('-flank','--flank','-F',metavar='flanks', type=int, help='Flanking sequence size for candidate regions. If not provided, flank size is calculated based on genome size with a range from 5 to 20 Kbp.')
 parser.add_argument('-Z','--size',metavar='dbsize', type=int, help='HMM library total size (Z). Important if using external datasets')
 parser.add_argument('--long', action='store_true',default=False, dest='long',help='Optimization mode Augustus self-training (Default: Off) adds ~20h extra run time, but can improve results for some non-model organisms')
@@ -67,16 +67,16 @@ else:
     print('A run with that name already exists!\nIf are sure you wish to rewrite existing files please use the -f option')
     raise SystemExit
 
-target_species='generic' 
+target_species='generic'
 if args['species']!='generic':
-  if args['species'] not in ['human','fly','generic','arabidopsis','brugia','aedes','tribolium','schistosoma','tetrahymena','galdieria','maize','toxoplasma','caenorhabditis','(elegans)','aspergillus_fumigatus','aspergillus_nidulans','(anidulans)','aspergillus_oryzae','aspergillus_terreus','botrytis_cinerea','candida_albicans','candida_guilliermondii','candida_tropicalis','chaetomium_globosum','coccidioides_immitis','coprinus','coprinus_cinereus','coyote_tobacco','cryptococcus_neoformans_gattii','cryptococcus_neoformans_neoformans_B','cryptococcus_neoformans_neoformans_JEC21','(cryptococcus)','debaryomyces_hansenii','encephalitozoon_cuniculi_GB','eremothecium_gossypii','fusarium_graminearum','(fusarium)','histoplasma_capsulatum','(histoplasma)','kluyveromyces_lactis','laccaria_bicolor','lamprey','leishmania_tarentolae','lodderomyces_elongisporus','magnaporthe_grisea','neurospora_crassa','(neurospora)','phanerochaete_chrysosporium','(pchrysosporium)','pichia_stipitis','rhizopus_oryzae','saccharomyces_cerevisiae_S288C','saccharomyces_cerevisiae_rm11-1a_1','(saccharomyces)','schizosaccharomyces_pombe','thermoanaerobacter_tengcongensis','trichinella','ustilago_maydis','(ustilago)','yarrowia_lipolytica','nasonia','tomato','chlamydomonas','amphimedon','pneumocystis','wheat','chicken']:
+  if args['species'] not in ['heliconius_melpomene1','human','fly','generic','arabidopsis','brugia','aedes','tribolium','schistosoma','tetrahymena','galdieria','maize','toxoplasma','caenorhabditis','(elegans)','aspergillus_fumigatus','aspergillus_nidulans','(anidulans)','aspergillus_oryzae','aspergillus_terreus','botrytis_cinerea','candida_albicans','candida_guilliermondii','candida_tropicalis','chaetomium_globosum','coccidioides_immitis','coprinus','coprinus_cinereus','coyote_tobacco','cryptococcus_neoformans_gattii','cryptococcus_neoformans_neoformans_B','cryptococcus_neoformans_neoformans_JEC21','(cryptococcus)','debaryomyces_hansenii','encephalitozoon_cuniculi_GB','eremothecium_gossypii','fusarium_graminearum','(fusarium)','histoplasma_capsulatum','(histoplasma)','kluyveromyces_lactis','laccaria_bicolor','lamprey','leishmania_tarentolae','lodderomyces_elongisporus','magnaporthe_grisea','neurospora_crassa','(neurospora)','phanerochaete_chrysosporium','(pchrysosporium)','pichia_stipitis','rhizopus_oryzae','saccharomyces_cerevisiae_S288C','saccharomyces_cerevisiae_rm11-1a_1','(saccharomyces)','schizosaccharomyces_pombe','thermoanaerobacter_tengcongensis','trichinella','ustilago_maydis','(ustilago)','yarrowia_lipolytica','nasonia','tomato','chlamydomonas','amphimedon','pneumocystis','wheat','chicken']:
     print('Invalid gene predictor species parameters, please check the file \'Possible_species.txt\'')
     raise SystemExit
   else:
     target_species=args['species']
     print(target_species)
-  
- 
+
+
 ev_cut=0.01	#default e-value cuttof
 try:
   if args['ev']!=ev_cut and args['ev']!=None:
@@ -100,7 +100,7 @@ try:
       else:
         print('Using custom lineage data...')
         try:
-          Z=args['dbsize'];  
+          Z=args['dbsize'];
         except:
           print('Please indicate the size of the custom HMM database using the (-Z integer)')
           raise SystemExit
@@ -136,7 +136,7 @@ except:
 #------------------------------------ Check if necessary programs are acessible --------------------#
 import subprocess
 def cmd_exists(cmd):
-    return subprocess.call("type " + cmd, shell=True, 
+    return subprocess.call("type " + cmd, shell=True,
         stdout=subprocess.PIPE, stderr=subprocess.PIPE) == 0
 
 if mode in ('genome','trans') and cmd_exists('tblastn')==False:
@@ -157,14 +157,14 @@ elif cmd_exists('hmmsearch')==True:
     else:
         print('Error: HMMer version detected is not unsupported, please use HMMer 3.1+')
         raise SystemExit
-        
+
 if mode=='genome' and cmd_exists('augustus')==False:
   print('Error: Augustus is not accessible from the command-line, please add it to the environment')
   raise SystemExit
 
 if mode=='genome' and os.access(os.environ.get('AUGUSTUS_CONFIG_PATH'),os.W_OK)==False:
   print('Error: Cannot write to Augustus directory, please make sure you have write permissions to %s' % os.environ.get('AUGUSTUS_CONFIG_PATH'))
-    
+
 if mode=='trans' and cmd_exists('transeq')==False:
   print('Error: EMBOSS transeq is not accessible from the commandline, please add it to the environment')
   raise SystemExit
@@ -187,7 +187,7 @@ if mode=='genome' or mode=='blast':   #scalled flanks
     flank=5000
   elif flank>maxflank:
     flank=maxflank
- 
+
 #------------------------------------ Argument parser END ----------------------------------------#
 
 
@@ -221,7 +221,7 @@ def extract(path,group):
   check=0;
   while True:
       line = f.readline()
-      if not line: 
+      if not line:
         break
       if line.startswith('# start gene'):
         line=f.readline();line=line.split();places=[line[0],line[3],line[4]]
@@ -230,7 +230,7 @@ def extract(path,group):
         count+=1
         out.write('>p%s[%s:%s-%s]\n' % (count,places[0],places[1],places[2]))
         if line[1][-1]==']':
-          line[1]=line[1][:-1]        
+          line[1]=line[1][:-1]
         out.write(line[1])
         check=1
       else:
@@ -242,7 +242,7 @@ def extract(path,group):
           if line[-1]==']':
             line=line[:-1]
           out.write(line)
-  out.close() 
+  out.close()
 
 def disentangle(deck):
   structure=deque([deck.popleft()])
@@ -259,7 +259,7 @@ def disentangle(deck):
           else:
             new=structure[0:i];new.append(temp)
             for z in range(i,len(structure)):
-              new.append(structure[z])          
+              new.append(structure[z])
             break
         elif start<ds and end<de and end>ds: #end overlaps inside, but the start is before
           structure[i][0]=start
@@ -274,12 +274,12 @@ def disentangle(deck):
          structure[i]=temp
   except:
     return(structure)
-          
+
 def gargantua(deck):
   total=0
   for entry in deck:
     total+=entry[1]-entry[0]
-  return(total)  
+  return(total)
 
 def shrink (number):
   number=number*100
@@ -289,7 +289,7 @@ def shrink (number):
     number=str(number)[:3]
   return(number)
 
-#---------------------------BLAST steps START -------------------------------------------# 
+#---------------------------BLAST steps START -------------------------------------------#
 
 #Make a blast database and run tblastn
 if mode=='genome' or mode=='blast' or mode=='trans':
@@ -298,7 +298,7 @@ if mode=='genome' or mode=='blast' or mode=='trans':
   os.system('tblastn -num_threads %s -query %s/ancestral -db %s -out %s_tblastn -outfmt 7' % 	  (cpus,clade,args['abrev'],args['abrev']))
 
 #Get coordinates for a genome analysis
-if mode=='genome' or mode=='blast':  
+if mode=='genome' or mode=='blast':
   print('*** Getting coordinates for candidate regions! ***')
   f=open('%s_tblastn' % args['abrev'])	#open input file
   out=open('coordinates_%s' % args['abrev'],'w')          	#open Coordinates output file
@@ -311,9 +311,9 @@ if mode=='genome' or mode=='blast':
       name=line[0];scaff=line[1];hitstart=int(line[6]);hitend=int(line[7]);postart=int(line[8]);posend=int(line[9])
       e_val=float(line[10]);sizer=int(line[3])
       if posend<postart:	#for minus-strand genes, invert coordinates for convenience
-        temp=posend;posend=postart;postart=temp         
+        temp=posend;posend=postart;postart=temp
       if name not in dic.keys(): #create new entry in dictionary for current BUSCO
-        dic[name]=[scaff];coords[name]={};coords[name][scaff]=[postart,posend,deque([[hitstart,hitend]]),sizer]  
+        dic[name]=[scaff];coords[name]={};coords[name][scaff]=[postart,posend,deque([[hitstart,hitend]]),sizer]
       elif scaff not in dic[name] and len(dic[name])<3:	#get just the top3 scoring regions
         dic[name].append(scaff);coords[name][scaff]=[postart,posend,deque([[hitstart,hitend]]),sizer]
       elif scaff in dic[name] and e_val<ev_cut:	#scaffold already checked, now update coordinates
@@ -321,11 +321,11 @@ if mode=='genome' or mode=='blast':
             coords[name][scaff][0]=postart;coords[name][scaff][2].append([hitstart,hitend]);
         if posend>coords[name][scaff][1] and posend-coords[name][scaff][1]<=50000:	#ends after and within 50 kbs
           coords[name][scaff][1]=posend;coords[name][scaff][3]=hitend;coords[name][scaff][2].append([hitstart,hitend]);
-        elif postart>coords[name][scaff][0] and postart<coords[name][scaff][1]:#starts inside current coordinates 
+        elif postart>coords[name][scaff][0] and postart<coords[name][scaff][1]:#starts inside current coordinates
           if posend<coords[name][scaff][1]:
             coords[name][scaff][2].append([hitstart,hitend])  #if ending inside, just add alignemnt positions to deque
           elif posend>coords[name][scaff][1]: #if ending after current coordinates, extend
-            coords[name][scaff][2][1]=posend;coords[name][scaff][2].append([hitstart,hitend]) 
+            coords[name][scaff][2][1]=posend;coords[name][scaff][2].append([hitstart,hitend])
   for i in coords:
     contest={};maxi=0
     for contig in coords[i]:
@@ -340,7 +340,7 @@ if mode=='genome' or mode=='blast':
       #if contest[contig]>0.7*maxi:
       out.write('%s\t%s\t%s\t%s\n' % (i,contig,max(0,coords[i][contig][0]-flank),coords[i][contig][1]+flank))
   out.close()
- 
+
 #Get coordinates, candidate regions and translate sequences (transcriptome analysis)
 if mode=='transcriptome' or mode=='trans':
   print('*** Getting coordinates for candidate transcripts! ***')
@@ -383,8 +383,8 @@ if mode=='transcriptome' or mode=='trans':
   for entry in files:
     if entry.endswith(args['abrev']+'_.temp'):
       lista.append(entry)
-      
-  print('Translating candidate transcripts !')    
+
+  print('Translating candidate transcripts !')
   for entry in lista:
     #print(entry);a=input('press to continue')
     os.system('transeq -clean -frame 6 -trim -sequence %(scaffold)s -outseq %(translated_scaffold)s.fas' % {'scaffold':entry,'translated_scaffold':mainout+'translated_proteins/'+entry.split(args['abrev'])[0]+'_ts'})
@@ -398,7 +398,7 @@ if mode=='transcriptome' or mode=='trans':
     except:
       pass
   totalbuscos=len(list(score_dic.keys()))
-  
+
 #---------------------------AUGUSTUS steps START -------------------------------------------#
 
 exitFlag=0
@@ -425,7 +425,7 @@ def process_data(threadName, q):
             queueLock.release()
         time.sleep(1)
 
-#Step-3 
+#Step-3
 #Extract candidate contigs/scaffolds from genome assembly (necessary because augustus doesn't handle multi-fasta files when running on a specific target region)
 if mode=='genome' or mode=='augustus':
   #target_species=species_list[0]
@@ -456,7 +456,7 @@ if mode=='genome' or mode=='augustus':
 #################
 
 
-#Step-4 
+#Step-4
 #Augustus search on candidate regions using the pre-built Block profiles (msa2prfl.pl)
   print('*** Running Augustus prediction ***')
   if os.path.exists('%saugustus' % mainout)==False:
@@ -466,11 +466,11 @@ if mode=='genome' or mode=='augustus':
   dic={};
   for i in f:
     i=i.strip().split('\t');name=i[0]
-    if name not in dic:  
+    if name not in dic:
       dic[name]=[[i[1],i[2],i[3]]] #scaffold,start and end
     elif name in dic:
       dic[name].append([i[1],i[2],i[3]])
-  strings=[]    
+  strings=[]
   for i in dic:
       if len(dic[i])>1:
         for z in range(0,len(dic[i])):
@@ -479,11 +479,11 @@ if mode=='genome' or mode=='augustus':
       else:
         command='augustus --proteinprofile=%(clade)s/%(prot_profile)s --predictionStart=%(start_coord)s --predictionEnd=%(end_coord)s --species=%(species)s \"%(scaffold)s\" > %(output)s 2>/dev/null' % {'prot_profile':'prfl/'+i+'.prfl','start_coord':dic[i][0][1],'end_coord':dic[i][0][2],'clade':clade,'species':target_species,'scaffold':dic[i][0][0]+args['abrev']+'_.temp','output':mainout+'augustus/'+i+'.out'}
         strings.append(command)
-    
+
   threadList=[]
   for i in range(int(cpus)):
     threadList.append("Thread-%s" % str(i+1))
-  
+
   nameList = list(dic.keys())
   queueLock = threading.Lock()
   workQueue = queue.Queue(len(strings))
@@ -512,12 +512,12 @@ if mode=='genome' or mode=='augustus':
 # Wait for all threads to complete
   for t in threads:
       t.join()
-  print("Exiting Main Thread") 
+  print("Exiting Main Thread")
   exitFlag=0
-  
+
 
 #---------------------------AUGUSTUS steps END -------------------------------------------#
-  
+
 #---------------------------HMMER steps START -------------------------------------------#
 
 if mode=='genome' or mode=='hmmer':  #should be augustus
@@ -526,16 +526,16 @@ if mode=='genome' or mode=='hmmer':  #should be augustus
   files=os.listdir(mainout+'augustus')
   count=0;check=0
   for i in files:
-    os.system('sed -i \'1,3d\' %saugustus/%s' % (mainout,i)) 
+    os.system('sed -i \'1,3d\' %saugustus/%s' % (mainout,i))
   if os.path.exists(mainout+'augustus_proteins')==False:
     os.system('mkdir %saugustus_proteins' % mainout)
-  
+
   for i in files:
     f=open(mainout+'augustus/'+i)
     if i.endswith('.out'):
       out=open('%saugustus_proteins/%s.fas' % (mainout,i[:-4]),'w')
     elif i.endswith(('.1','.2','.3')):
-      out=open('%saugustus_proteins/%s.fas.%s' % (mainout,i[:-6],i[-1]),'w')    
+      out=open('%saugustus_proteins/%s.fas.%s' % (mainout,i[:-6],i[-1]),'w')
     count=0;tr=0
     for line in f:
       if line.startswith('# start gene'):
@@ -547,7 +547,7 @@ if mode=='genome' or mode=='hmmer':  #should be augustus
         count+=1
         out.write('>g%s[%s:%s-%s]\n' % (count,places[0],places[1],places[2]))
         if line[1][-1]==']':
-          line[1]=line[1][:-1]        
+          line[1]=line[1][:-1]
         out.write(line[1])
         check=1
       else:
@@ -559,30 +559,30 @@ if mode=='genome' or mode=='hmmer':  #should be augustus
           if line[-1]==']':
             line=line[:-1]
           out.write(line)
-  out.close() 
+  out.close()
 
-#Run HMMer (genome mode)  
-if mode=='genome' or mode=='hmmer':  
+#Run HMMer (genome mode)
+if mode=='genome' or mode=='hmmer':
   print('*** Running HMMER to confirm orthology of predicted proteins ***')
 
   files=os.listdir(mainout+'augustus_proteins/')
   if os.path.exists(mainout+'hmmer_output')==False:
     os.system('mkdir %shmmer_output' % mainout)
-  
+
   for i in files:
     if i.endswith('.fas'):
       f=open(mainout+'augustus_proteins/'+i)
       name=i[:-4]
-      os.system('hmmsearch --domtblout %(output_file)s.out -Z %(db_size)s -o temp --cpu %(cpu)s %(group_file)s.hmm %(input_file)s ' % 
+      os.system('hmmsearch --domtblout %(output_file)s.out -Z %(db_size)s -o temp --cpu %(cpu)s %(group_file)s.hmm %(input_file)s ' %
 	    {'input_file':mainout+'/augustus_proteins/'+i,'db_size':Z,'cpu':cpus,'group_file':clade+'/hmms/'+name,'output_file':mainout+'hmmer_output/'+name})
     elif i.endswith(('.1','.2','.3')):
       f=open(mainout+'augustus_proteins/'+i)
       name=i[:-6]
-      os.system('hmmsearch --domtblout %(output_file)s -Z %(db_size)s -o temp --cpu %(cpu)s %(group_file)s.hmm %(input_file)s ' % 
-	    {'input_file':mainout+'/augustus_proteins/'+i,'db_size':Z,'cpu':cpus,'group_file':clade+'/hmms/'+name,'output_file':mainout+'hmmer_output/'+name+'.out.'+i[-1]}) 
+      os.system('hmmsearch --domtblout %(output_file)s -Z %(db_size)s -o temp --cpu %(cpu)s %(group_file)s.hmm %(input_file)s ' %
+	    {'input_file':mainout+'/augustus_proteins/'+i,'db_size':Z,'cpu':cpus,'group_file':clade+'/hmms/'+name,'output_file':mainout+'hmmer_output/'+name+'.out.'+i[-1]})
 
 #Run HMMer (transcriptome mode)
-if mode=='trans' or mode=='transcriptome':  
+if mode=='trans' or mode=='transcriptome':
   print('*** Running HMMER to confirm transcript orthology ***')
   files=os.listdir('%stranslated_proteins/' % mainout)
   if os.path.exists('%shmmer_output' % mainout)==False:
@@ -594,11 +594,11 @@ if mode=='trans' or mode=='transcriptome':
       name=i[:-7];group=transdic[name]
       if group not in grouplist:
         grouplist.append(group)
-        os.system('hmmsearch --domtblout %(output_file)s.out.1 -Z %(db_size)s -o temp --cpu %(cpu)s %(group_file)s.hmm %(input_file)s ' % 
+        os.system('hmmsearch --domtblout %(output_file)s.out.1 -Z %(db_size)s -o temp --cpu %(cpu)s %(group_file)s.hmm %(input_file)s ' %
 	    {'input_file':mainout+'/translated_proteins/'+i,'db_size':Z,'cpu':cpus,'group_file':clade+'/hmms/'+group,'output_file':mainout+'hmmer_output/'+group})
       else:
         grouplist.append(group)
-        os.system('hmmsearch --domtblout %(output_file)s.out.%(count)s -Z %(db_size)s -o temp --cpu %(cpu)s %(group_file)s.hmm %(input_file)s ' % 
+        os.system('hmmsearch --domtblout %(output_file)s.out.%(count)s -Z %(db_size)s -o temp --cpu %(cpu)s %(group_file)s.hmm %(input_file)s ' %
 	    {'input_file':mainout+'/translated_proteins/'+i,'db_size':Z,'cpu':cpus,'group_file':clade+'/hmms/'+group,'output_file':mainout+'hmmer_output/'+group,'count':str(grouplist.count(group))})
 
 #OGS/Proteome module
@@ -619,21 +619,21 @@ if mode=='OGS':
   for i in files:
     name=i[:-4]
     if name in score_dic:
-      os.system('hmmsearch --domtblout %(output_file)s.out -o temp  -Z %(db_size)s --cpu %(cpu)s %(group_file)s.hmm %(input_file)s ' % 
+      os.system('hmmsearch --domtblout %(output_file)s.out -o temp  -Z %(db_size)s --cpu %(cpu)s %(group_file)s.hmm %(input_file)s ' %
 	{'input_file':args['genome'],'db_size':Z,'cpu':cpus,'group_file':clade+'/hmms/'+name,'output_file':mainout+'hmmer_output/'+name})
 
 
 ###*******get list to be re-run
 if mode=='genome' or mode=='hmmer':
   print('*** Parsing HMMER results ***')
-  #Open the output file; if no name was specified the default name will be used    
+  #Open the output file; if no name was specified the default name will be used
   f2=open('%s/scores_cutoff' % clade)	#open target scores file
   #Load dictionary of HMM expected scores and full list of groups
   score_dic={};
   for i in f2:
     i=i.strip().split()
     try:
-      score_dic[i[0]]=float(i[1]); 
+      score_dic[i[0]]=float(i[1]);
     except:
       pass
   totalbuscos=len(list(score_dic.keys()))
@@ -641,7 +641,7 @@ if mode=='genome' or mode=='hmmer':
   dic={};
   for i in f:
     i=i.strip().split('\t');name=i[0]
-    if name not in dic:  
+    if name not in dic:
       dic[name]=[[i[1],i[2],i[3]]] #scaffold,start and end
     elif name in dic:
       dic[name].append([i[1],i[2],i[3]])
@@ -681,7 +681,7 @@ if mode=='genome' or mode!='OGS' or mode=='report' or mode=='hmmer':
              hit_dic[prot]=[[int(line[15]),int(line[16])]]
            elif score>=score_dic[group]:
              hit_dic[prot].append([int(line[15]),int(line[16])])
-    length=measuring(hit_dic)  
+    length=measuring(hit_dic)
     try:		#get maximum length of the putative gene in question
       if len(length)==1:
         length=length[0];
@@ -694,7 +694,7 @@ if mode=='genome' or mode!='OGS' or mode=='report' or mode=='hmmer':
         frag.append(entry);
     except:
       pass
-  #check the multi hits 
+  #check the multi hits
   for entry in complete:
     if entry.endswith('.out'):
       name=entry[:-4]
@@ -745,26 +745,26 @@ if mode=='OGS':
              hit_dic[prot]=[[int(line[15]),int(line[16]),line[7]]]
            elif score>=score_dic[group]:
              hit_dic[prot].append([int(line[15]),int(line[16]),line[7]])
-    lengths=measuring(hit_dic)  
+    lengths=measuring(hit_dic)
     try:		#get maximum length of the putative gene in question
       if len(lengths)==1:
         length=lengths[0];
         sigma=abs(leng_dic[group]-length)/sd_dic[group]
         if sigma<=2:
-          complete[group].append([list(hit_dic.keys())[lengths.index(length)],hit_dic[list(hit_dic.keys())[lengths.index(length)]][0][2],length]); 
+          complete[group].append([list(hit_dic.keys())[lengths.index(length)],hit_dic[list(hit_dic.keys())[lengths.index(length)]][0][2],length]);
         elif sigma>2:
-          frag[group].append(list(hit_dic.keys())[lengths.index(length)]); 
+          frag[group].append(list(hit_dic.keys())[lengths.index(length)]);
       else:
         for length in lengths:
         #length=max(lengths)+1
           sigma=abs(leng_dic[group]-length)/sd_dic[group]
           if sigma<=2:
-            complete[group].append([list(hit_dic.keys())[lengths.index(length)],hit_dic[list(hit_dic.keys())[lengths.index(length)]][0][2],length]); 
+            complete[group].append([list(hit_dic.keys())[lengths.index(length)],hit_dic[list(hit_dic.keys())[lengths.index(length)]][0][2],length]);
           elif sigma>2:
-            frag[group].append(list(hit_dic.keys())[lengths.index(length)]); 
+            frag[group].append(list(hit_dic.keys())[lengths.index(length)]);
     except:
       pass
-  #check the multi hits 
+  #check the multi hits
   for entry in complete:
     if len(complete[entry])==0:
       pass
@@ -777,31 +777,31 @@ if mode=='OGS':
       pass
     elif frag[entry]!=[]:
       fcc.append(entry)
-      
+
 #summarize results, print and write to output files
 summary=open('short_summary_'+args['abrev'],'w');
 if mode=='OGS':
   print('Total complete BUSCOs found in assembly (<2 sigma) :  %s\t(%s duplicated).' % (len(set(cc))+len(set(mcc)),len(mcc)))
   print('Total BUSCOs partially recovered (>2 sigma) :  %s' % (len(fcc)))
-else:  
+else:
   print('Total complete BUSCOs found in assembly (<2 sigma) :  %s\t(%s duplicated).' % (len(set(unique)),len(mcc)))
   print('Total BUSCOs partially recovered (>2 sigma) :  %s' % (fcc))
 print('Total groups searched: %s' % (totalbuscos))
 try:
   if mode!='OGS':
     print('Total BUSCOs not found:  %s' % (totalbuscos-(len(set(cc))+fcc)))
-  else: 
+  else:
     print('Total BUSCOs not found:  %s' % (totalbuscos-(len(set(cc))+len(set(mcc))+len(fcc))))
 except:
   print('Total BUSCOs not found:  %s' % (totalbuscos-(len(set(cc))+len(fcc))))
 
 
 summary.write('#Summarized BUSCO benchmarking for file: %s\n#BUSCO was run in mode: %s\n\n' % (args['genome'],mode))
-if mode!='OGS' and mode!='trans': 
+if mode!='OGS' and mode!='trans':
   summary.write('Summarized benchmarks in BUSCO notation:\n\tC:%s%%[D:%s%%],F:%s%%,M:%s%%,n:%s\n\n' % (shrink((len(set(cc))+len(set(mcc)))/totalbuscos),shrink(len(set(mcc))/totalbuscos),shrink(fcc/totalbuscos),shrink((totalbuscos-(len(set(cc))+fcc))/totalbuscos),totalbuscos))
 elif mode=='OGS':
   summary.write('Summarized benchmarks in BUSCO notation:\n\tC:%s%%[D:%s%%],F:%s%%,M:%s%%,n:%s\n\n' % (shrink((len(set(cc))+len(set(mcc)))/totalbuscos),shrink(len(set(mcc))/totalbuscos),shrink(len(fcc)/totalbuscos),shrink((totalbuscos-(len(set(cc))+len(set(mcc))+len(fcc)))/totalbuscos),totalbuscos))
-elif mode=='trans':  
+elif mode=='trans':
   summary.write('Summarized benchmarks in BUSCO notation:\n\tC:%s%%[D:%s%%],F:%s%%,M:%s%%,n:%s\n\n' % (shrink(len(set(cc))/totalbuscos),shrink(len(set(mcc))/totalbuscos),shrink(fcc/totalbuscos),shrink((totalbuscos-(len(set(cc))+fcc))/totalbuscos),totalbuscos))
 
 summary.write('Representing:\n')
@@ -813,7 +813,7 @@ elif mode=='OGS':
   summary.write('\t%s\tComplete Duplicated BUSCOs\n' % (len(set(mcc))))
 elif mode=='trans':
   summary.write('\t%s\tComplete Single-copy BUSCOs\n' % (len(set(cc))-len(set(mcc))))
-  summary.write('\t%s\tComplete Duplicated BUSCOs\n' % (len(set(mcc)))) 
+  summary.write('\t%s\tComplete Duplicated BUSCOs\n' % (len(set(mcc))))
 if mode!='OGS':
   summary.write('\t%s\tFragmented BUSCOs\n' % (fcc))
   summary.write('\t%s\tMissing BUSCOs\n' % (totalbuscos-(len(set(cc))+fcc)))
@@ -822,7 +822,7 @@ elif mode=='OGS':
   summary.write('\t%s\tMissing BUSCOs\n' % (totalbuscos-(len(set(cc))+len(set(mcc))+len(fcc))))
 
 
-  
+
 summary.write('\t%s\tTotal BUSCO groups searched\n' % (totalbuscos))
 summary.close()
 summary=open('full_table_%s' % args['abrev'],'w')
@@ -833,7 +833,7 @@ elif mode=='OGS':
   summary.write('#BUSCO_group\tStatus\tGene\tBitscore\tLength\n')
 elif mode=='trans' or mode=='transcriptome':
   summary.write('#BUSCO_group\tStatus\tTranscript\tBitscore\tLength\n')
-  
+
 temp=os.listdir('%shmmer_output' % mainout);done=[]
 files=[]
 for i in temp:
@@ -862,30 +862,30 @@ for i in files:
     if hit_dic=={}:
       pass
     elif i in complete and name not in mcc:
-      summary.write('%s\tComplete\t%s\t%s\t%s\t%s\t%s\n' % (name,dic[group][marker][0],dic[group][marker][1],dic[group][marker][2],max(score),max(length)+1))    
+      summary.write('%s\tComplete\t%s\t%s\t%s\t%s\t%s\n' % (name,dic[group][marker][0],dic[group][marker][1],dic[group][marker][2],max(score),max(length)+1))
     elif i in complete and name in mcc:
-      summary.write('%s\tDuplicated\t%s\t%s\t%s\t%s\t%s\n' % (name,dic[group][marker][0],dic[group][marker][1],dic[group][marker][2],max(score),max(length)+1))    
+      summary.write('%s\tDuplicated\t%s\t%s\t%s\t%s\t%s\n' % (name,dic[group][marker][0],dic[group][marker][1],dic[group][marker][2],max(score),max(length)+1))
     elif i in frag and name not in cc and name not in done:
-      summary.write('%s\tFragmented\t%s\t%s\t%s\t%s\t%s\n' % (name,dic[group][marker][0],dic[group][marker][1],dic[group][marker][2],max(score),max(length)+1))    
+      summary.write('%s\tFragmented\t%s\t%s\t%s\t%s\t%s\n' % (name,dic[group][marker][0],dic[group][marker][1],dic[group][marker][2],max(score),max(length)+1))
   elif mode=='OGS':
     if hit_dic=={}:
       pass
     elif name in complete and name not in mcc and name in cc:
-      summary.write('%s\tComplete\t%s\t%s\t%s\n' % (name,complete[name][0][0],max(score),max(length)+1))    
+      summary.write('%s\tComplete\t%s\t%s\t%s\n' % (name,complete[name][0][0],max(score),max(length)+1))
     elif name in mcc:
       for entry in complete[name]:
-        summary.write('%s\tDuplicated\t%s\t%s\t%s\n' % (name,entry[0],entry[1],entry[2]+1))    
+        summary.write('%s\tDuplicated\t%s\t%s\t%s\n' % (name,entry[0],entry[1],entry[2]+1))
     elif name in fcc and name not in cc:
-      summary.write('%s\tFragmented\t%s\t%s\t%s\n' % (name,frag[name][0],max(score),max(length)+1))    
+      summary.write('%s\tFragmented\t%s\t%s\t%s\n' % (name,frag[name][0],max(score),max(length)+1))
   elif mode=='trans' or mode=='Transcriptome':
     if hit_dic=={}:
       pass
     elif i in complete and name not in mcc:
-      summary.write('%s\tComplete\t%s\t%s\t%s\n' % (name,dic[group][marker],max(score),max(length)+1))    
+      summary.write('%s\tComplete\t%s\t%s\t%s\n' % (name,dic[group][marker],max(score),max(length)+1))
     elif i in complete and name in mcc:
-      summary.write('%s\tDuplicated\t%s\t%s\t%s\n' % (name,dic[group][marker],max(score),max(length)+1))    
+      summary.write('%s\tDuplicated\t%s\t%s\t%s\n' % (name,dic[group][marker],max(score),max(length)+1))
     elif i in frag and name not in cc and name not in done:
-      summary.write('%s\tFragmented\t%s\t%s\t%s\n' % (name,dic[group][marker],max(score),max(length)+1))   
+      summary.write('%s\tFragmented\t%s\t%s\t%s\n' % (name,dic[group][marker],max(score),max(length)+1))
 summary.close();f.close()
 
 
@@ -904,7 +904,7 @@ for i in score_dic.keys():
   else:
     out.write(i+'\n')
     f.write('%s\tMissing\n' % (i))
-out.close();f.close()        
+out.close();f.close()
 
 #######retraining
 exitFlag=0
@@ -936,7 +936,7 @@ if mode=='genome' or mode=='genome' or mode=='hmmer':
       if name in lista:
         os.system('cp %s/hmmer_output/%s %s/selected/' % (mainout,i,mainout))
         chosen.append(i)
-      
+
   for entry in chosen:
     f=open('%s/selected/%s' % (mainout,entry))
     out=open('%s/gffs/%s' % (mainout,entry),'w');choicy=''
@@ -958,22 +958,22 @@ if mode=='genome' or mode=='genome' or mode=='hmmer':
         out.write(line)
   f.close()
   for entry in chosen:
-    f=open('%s/gffs/%s' % (mainout,entry))      
+    f=open('%s/gffs/%s' % (mainout,entry))
     os.system('$AUGUSTUS_CONFIG_PATH/../scripts/gff2gbSmallDNA.pl %s/gffs/%s %s 1000 %s/gb/%s.raw.gb' % (mainout,entry,args['genome'],mainout,entry[:-4]))
-  
-  print('Training augustus gene predictor')  
+
+  print('Training augustus gene predictor')
   os.system('$AUGUSTUS_CONFIG_PATH/../scripts/new_species.pl --species=%s' % (args['abrev'])) #create new species config file from template
-  os.system('cat %sgb/*.gb > training_set_%s' % (mainout,args['abrev']))    
+  os.system('cat %sgb/*.gb > training_set_%s' % (mainout,args['abrev']))
   os.system('etraining --species=%s training_set_%s' % (args['abrev'],args['abrev'])) #train on new training set (complete single copy buscos)
-  
+
   if args['long']==True:
      print('Optimizing augustus metaparameters, this may take around 20 hours')
      os.system('$AUGUSTUS_CONFIG_PATH/../scripts/optimize_augustus.pl --species=%s training_set_%s' % (args['abrev'],args['abrev'])) #train on new training set (complete single copy buscos)
      os.system('etraining --species=%s training_set_%s' % (args['abrev'],args['abrev'])) #train on new training set (complete single copy buscos)
-  
-  
-  
-  
+
+
+
+
   print('*** Re-running failed predictions with different constraints, total number %s ***' % len(re_run))
   done=[];target_species=args['abrev']
   strings=[];
@@ -982,49 +982,49 @@ if mode=='genome' or mode=='genome' or mode=='hmmer':
   ripped=[]
   for item in re_run:
     if item not in dic: #no coordinates found
-      pass 
+      pass
     elif len(dic[item])>1: #more than one target coordinate
       count=0
       for entry in dic[item]:
         count+=1;
         command='augustus --proteinprofile=%(clade)s/%(prot_profile)s.prfl --predictionStart=%(start_coord)s --predictionEnd=%(end_coord)s --species=%(species)s \"%(scaffold)s\" > %(output)s 2>/dev/null' % {'prot_profile':'prfl/'+item,'start_coord':entry[1],'end_coord':entry[2],'clade':clade,'species':target_species,'scaffold':entry[0]+args['abrev']+'_.temp','output':mainout+'augustus/'+item+'.out.'+str(count)}
-        
+
         strings.append(command)
-        
+
         command='sed -i \'1,3d\' %(group_name)s' % {'group_name':mainout+'augustus/'+item+'.out.'+str(count)};
-        
+
         seds.append(command)
-        
+
         ripped.append(item+'.out.'+str(count));
-        
+
         command='hmmsearch --domtblout %(output_file)s -Z %(db_size)s -o temp --cpu %(cpu)s %(group_file)s.hmm %(input_file)s ' %   {'input_file':mainout+'/augustus_proteins/'+item+'.fas.'+str(count),'db_size':Z,'cpu':1,'group_file':clade+'/hmms/'+item,'output_file':mainout+'hmmer_output/'+item+'.out.'+str(count)}
         hammers.append(command)
 
-        
-        
+
+
     elif len(dic[item])==1:
       entry=dic[item][0]
       try:
         command='augustus --proteinprofile=%(clade)s/%(prot_profile)s.prfl --predictionStart=%(start_coord)s --predictionEnd=%(end_coord)s --species=%(species)s \"%(scaffold)s\" > %(output)s 2>/dev/null' %    {'prot_profile':'prfl/'+item,'start_coord':entry[1],'end_coord':entry[2],'clade':clade,'species':target_species,'scaffold':entry[0]+args['abrev']+'_.temp','output':mainout+'augustus/'+item+'.out'}
         strings.append(command)
-        
+
         command='sed -i \'1,3d\' %(group_name)s' % {'group_name':mainout+'augustus/'+item+'.out'}
         seds.append(command)
-        
+
         ripped.append(item);name=item
-        
+
         command='hmmsearch --domtblout %(output_file)s.out -Z %(db_size)s -o temp --cpu %(cpu)s %(group_file)s.hmm %(input_file)s.fas' % {'input_file':mainout+'/augustus_proteins/'+name,'db_size':Z,'cpu':1,'group_file':clade+'/hmms/'+name,'output_file':mainout+'hmmer_output/'+name}
         hammers.append(command)
       except:
-        pass   
-  #missing(mainout,args['abrev'],'missing_buscos_list_')  
-  
+        pass
+  #missing(mainout,args['abrev'],'missing_buscos_list_')
+
   print('Starting to run Augustus again....')
   queueLock=threading.Lock()
   workQueue=queue.Queue(len(strings))
   threads=[]
   threadID=1
-  
+
   needed=len(strings);mark=0
 
   # Create new threads
@@ -1053,17 +1053,17 @@ if mode=='genome' or mode=='genome' or mode=='hmmer':
 # Wait for all threads to complete
   for t in threads:
       t.join()
-  print("Exiting Main Thread") 
-  
-  
+  print("Exiting Main Thread")
+
+
   print('Starting to run SED....')
   exitFlag=0
-  
+
   queueLock=threading.Lock()
   workQueue=queue.Queue(len(seds))
   threads=[]
   threadID=1
-  
+
   needed=len(seds);mark=0
 
   # Create new threads
@@ -1075,7 +1075,7 @@ if mode=='genome' or mode=='genome' or mode=='hmmer':
       threadID+=1
       if mark>=needed:
           break
-  
+
   queueLock.acquire()
   for word in seds:
       workQueue.put(word)
@@ -1090,21 +1090,21 @@ if mode=='genome' or mode=='genome' or mode=='hmmer':
 # Wait for all threads to complete
   for t in threads:
       t.join()
-  print("Exiting Main Thread") 
-  
+  print("Exiting Main Thread")
+
   print('Starting to run EXTRACT....')
   for entry in ripped:
       extract(mainout,entry)
-  
+
   print('Starting to run HMMER....')
-  
+
   exitFlag=0
-  
+
   queueLock=threading.Lock()
   workQueue=queue.Queue(len(seds))
   threads=[]
   threadID=1
-  
+
   needed=len(seds);mark=0
 
   # Create new threads
@@ -1116,8 +1116,8 @@ if mode=='genome' or mode=='genome' or mode=='hmmer':
       threadID+=1
       if mark>=needed:
           break
-  
-  
+
+
   queueLock.acquire()
   for word in hammers:
       workQueue.put(word)
@@ -1132,7 +1132,7 @@ if mode=='genome' or mode=='genome' or mode=='hmmer':
 # Wait for all threads to complete
   for t in threads:
       t.join()
-  print("Exiting Main Thread") 
+  print("Exiting Main Thread")
 
 
 
@@ -1192,7 +1192,7 @@ if mode=='genome' or mode=='genome' or mode=='hmmer':
              hit_dic[prot]=[[int(line[15]),int(line[16])]]
            elif score>=score_dic[group]:
              hit_dic[prot].append([int(line[15]),int(line[16])])
-    length=measuring(hit_dic)  
+    length=measuring(hit_dic)
     try:		#get maximum length of the putative gene in question
       if len(length)==1:
         length=length[0];
@@ -1205,7 +1205,7 @@ if mode=='genome' or mode=='genome' or mode=='hmmer':
         frag.append(entry);
     except:
       pass
-  #check the multi hits 
+  #check the multi hits
   for entry in complete:
     if entry.endswith('.out'):
       name=entry[:-4]
@@ -1244,13 +1244,13 @@ if mode=='genome' or mode=='genome' or mode=='hmmer':
   summary.write('\t%s\tComplete Duplicated BUSCOs\n' % (len(set(mcc))))
   summary.write('\t%s\tFragmented BUSCOs\n' % (fcc))
   summary.write('\t%s\tMissing BUSCOs\n' % (totalbuscos-(len(set(cc))+fcc)))
-  
+
   summary.write('\t%s\tTotal BUSCO groups searched\n' % (totalbuscos))
   summary.close()
   summary=open('full_table_'+args['abrev'],'w')
   summary.write('#BUSCO_group\tStatus\tScaffold\tStart\tEnd\tBitscore\tLength\n')
 
-  
+
   temp=os.listdir('%shmmer_output' % mainout);done=[]
   files=[]
   for i in temp:
@@ -1278,11 +1278,11 @@ if mode=='genome' or mode=='genome' or mode=='hmmer':
     if hit_dic=={}:
       pass
     elif i in complete and name not in mcc:
-      summary.write('%s\tComplete\t%s\t%s\t%s\t%s\t%s\n' % (name,dic[group][marker][0],dic[group][marker][1],dic[group][marker][2],max(score),max(length)+1))    
+      summary.write('%s\tComplete\t%s\t%s\t%s\t%s\t%s\n' % (name,dic[group][marker][0],dic[group][marker][1],dic[group][marker][2],max(score),max(length)+1))
     elif i in complete and name in mcc:
-      summary.write('%s\tDuplicated\t%s\t%s\t%s\t%s\t%s\n' % (name,dic[group][marker][0],dic[group][marker][1],dic[group][marker][2],max(score),max(length)+1))    
+      summary.write('%s\tDuplicated\t%s\t%s\t%s\t%s\t%s\n' % (name,dic[group][marker][0],dic[group][marker][1],dic[group][marker][2],max(score),max(length)+1))
     elif i in frag and name not in cc and name not in done:
-      summary.write('%s\tFragmented\t%s\t%s\t%s\t%s\t%s\n' % (name,dic[group][marker][0],dic[group][marker][1],dic[group][marker][2],max(score),max(length)+1))    
+      summary.write('%s\tFragmented\t%s\t%s\t%s\t%s\t%s\n' % (name,dic[group][marker][0],dic[group][marker][1],dic[group][marker][2],max(score),max(length)+1))
   summary.close()
 
 
@@ -1299,7 +1299,7 @@ if mode=='genome' or mode=='genome' or mode=='hmmer':
     else:
       out.write('%s\n' % i)
       f.write('%s\tMissing\n' % (i))
-  out.close();f.close()        
+  out.close();f.close()
 
   os.system('mv short_summary_%s run_%s' % (args['abrev'],args['abrev']))
   os.system('mv missing_buscos_list_%s run_%s' % (args['abrev'],args['abrev']))
