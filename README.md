@@ -2,7 +2,7 @@
 
 You'll need to have a working [docker](http://www.docker.com) installation.
 
-`Clone` this repo, `cd` to the directory, type `make`
+`Clone` this repo, `cd` to the directory, type `docker-compose up`
 
 The build is also available on Docker Hub: `docker pull cfriedline/busco`
 
@@ -10,8 +10,6 @@ The build is also available on Docker Hub: `docker pull cfriedline/busco`
 
 ```bash
 docker run \
--v /Users/chris/Downloads:/input \
--v /Users/chris/Downloads:/results \
 cfriedline/busco \
 python3 /busco/BUSCO_v1.1b1/BUSCO_v1.1b1.py \
 -o gm -in \
