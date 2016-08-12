@@ -3,6 +3,7 @@ FROM phusion/baseimage:0.9.19
 MAINTAINER Chris Friedline <cfriedline@vcu.edu>
 
 RUN \
+    sed -i 's%archive.ubuntu.com%mirrors.gigenet.com/ubuntuarchive/%' /etc/apt/sources.list && \
     apt-get update && \
     apt-get install -y \
     curl \
