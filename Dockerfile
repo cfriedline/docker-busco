@@ -21,20 +21,18 @@ RUN \
     libbam-dev \
     vim \
     emboss \
-    emboss-lib
+    emboss-lib \
+    parallel
+
+RUN mkdir /busco
 
 RUN \
     cd /busco && \
-    wget http://busco.ezlab.org/files/arthropoda_buscos.tar.gz && \
-    wget http://busco.ezlab.org/files/vertebrata_buscos.tar.gz && \
-    wget http://busco.ezlab.org/files/fungi_buscos.tar.gz && \
-    wget http://busco.ezlab.org/files/bacteria_buscos.tar.gz && \
-    wget http://busco.ezlab.org/files/metazoa_buscos.tar.gz && \
-    wget http://busco.ezlab.org/files/eukaryota_buscos.tar.gz
+    parallel --bar wget http://busco.ezlab.org/files/{}_buscos.tar.gz ::: \
+        arthropoda vertebrata fungi bacteria metazoa eukaryota
 
 
 RUN \
-    mkdir /busco && \
     cd /busco && \
     wget ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/2.2.30/ncbi-blast-2.2.30+-x64-linux.tar.gz && \
     wget http://selab.janelia.org/software/hmmer3/3.1b2/hmmer-3.1b2-linux-intel-x86_64.tar.gz && \
