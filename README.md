@@ -7,7 +7,7 @@ for what you need. Put your files in `input`.
 
 To build and run: `docker-compose up`
 
-The build is also available on Docker Hub: `docker pull cfriedline/busco`
+The build is also available on Docker Hub. To use, change the line in the `yml` from `build .` to `image: cfriedline/busco`
 
 
 Make sure to consult the BUSCO [manual](http://busco.ezlab.org/files/BUSCO_userguide.pdf) and
@@ -28,4 +28,3 @@ number = {19},
 pages = {3210--3212},
 month = oct
 }
-```
