@@ -3,13 +3,13 @@ FROM phusion/baseimage:0.9.19
 MAINTAINER Chris Friedline <cfriedline@vcu.edu>
 
 RUN \
-    #sed -i 's/# \(.*multiverse$\)/\1/g' /etc/apt/sources.list && \
-    #sed -i 's/# \(.*universe$\)/\1/g' /etc/apt/sources.list && \
     apt-get update && \
-    apt-get install -y curl git wget build-essential cmake
-
-RUN \
     apt-get install -y \
+    curl \
+    git \
+    wget \
+    build-essential \
+    cmake \
     python3 \
     python3-dev \
     libboost-iostreams-dev \
