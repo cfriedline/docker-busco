@@ -84,3 +84,6 @@ CMD python3 $BUSCO_py \
 -e $BUSCO_e \
 -sp $BUSCO_sp \
 $BUSCO_extra
+
+# Clean up APT when done.
+RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
