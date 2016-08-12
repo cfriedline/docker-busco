@@ -24,13 +24,6 @@ RUN \
     emboss-lib
 
 RUN \
-    mkdir /busco && \
-    cd /busco && \
-    wget ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/2.2.30/ncbi-blast-2.2.30+-x64-linux.tar.gz && \
-    wget http://selab.janelia.org/software/hmmer3/3.1b2/hmmer-3.1b2-linux-intel-x86_64.tar.gz && \
-    wget http://bioinf.uni-greifswald.de/augustus/binaries/augustus-3.2.1.tar.gz
-
-RUN \
     cd /busco && \
     wget http://busco.ezlab.org/files/arthropoda_buscos.tar.gz && \
     wget http://busco.ezlab.org/files/vertebrata_buscos.tar.gz && \
@@ -38,6 +31,16 @@ RUN \
     wget http://busco.ezlab.org/files/bacteria_buscos.tar.gz && \
     wget http://busco.ezlab.org/files/metazoa_buscos.tar.gz && \
     wget http://busco.ezlab.org/files/eukaryota_buscos.tar.gz
+
+
+RUN \
+    mkdir /busco && \
+    cd /busco && \
+    wget ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/2.2.30/ncbi-blast-2.2.30+-x64-linux.tar.gz && \
+    wget http://selab.janelia.org/software/hmmer3/3.1b2/hmmer-3.1b2-linux-intel-x86_64.tar.gz && \
+    wget http://bioinf.uni-greifswald.de/augustus/binaries/augustus-3.2.2.tar.gz && \
+    wget http://busco.ezlab.org/files/BUSCO_v1.22.tar.gz
+
 
 RUN \
     cd /busco && \
@@ -66,8 +69,8 @@ RUN \
     wget http://busco.ezlab.org/files/BUSCO_v1.1b1.tar.gz && \
     tar zxvf BUSCO_v1.1b1.tar.gz
 
-ENV AUGUSTUS_CONFIG_PATH=/busco/augustus-3.2.1/config/
-ENV PATH=/busco/ncbi-blast-2.2.30+/bin:/busco/augustus-3.2.1/bin:$PATH
+ENV AUGUSTUS_CONFIG_PATH=/busco/augustus-3.2.2/config/
+ENV PATH=/busco/ncbi-blast-2.2.30+/bin:/busco/augustus-3.2.2/bin:$PATH
 
 VOLUME /input
 
