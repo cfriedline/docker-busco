@@ -3,7 +3,7 @@
 You'll need to have a working [docker](http://www.docker.com) installation.
 
 `Clone` this repo and `cd` to the directory. Edit the `env` file
-for what you need.
+for what you need. Put your files in `input`.
 
 To build and run: `docker-compose up`
 
