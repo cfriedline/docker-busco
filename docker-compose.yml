@@ -1,0 +1,8 @@
+version: '2'
+services:
+  busco:
+    build: .
+    volumes:
+        - ./input:/input
+        - ./results:/results
+    env_file: env
