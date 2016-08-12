@@ -34,15 +34,16 @@ RUN \
 
 RUN \
     cd /busco && \
-    wget ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/2.2.30/ncbi-blast-2.2.30+-x64-linux.tar.gz && \
-    wget http://selab.janelia.org/software/hmmer3/3.1b2/hmmer-3.1b2-linux-intel-x86_64.tar.gz && \
-    wget http://bioinf.uni-greifswald.de/augustus/binaries/augustus-3.2.2.tar.gz && \
-    wget http://busco.ezlab.org/files/BUSCO_v1.22.tar.gz
+    parallel --bar wget ::: \
+    ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/2.2.30/ncbi-blast-2.2.30+-x64-linux.tar.gz \
+    http://eddylab.org/software/hmmer3/3.1b2/hmmer-3.1b2-linux-intel-x86_64.tar.gz \
+    http://bioinf.uni-greifswald.de/augustus/binaries/augustus-3.2.2.tar.gz \
+    http://busco.ezlab.org/files/BUSCO_v1.22.tar.gz
 
 
 RUN \
     cd /busco && \
-    for i in *.gz; do tar zxvf $i; done;
+    parallel tar zxvf ::: *.gz
 
 RUN \
     cd /busco/hmmer* && \
