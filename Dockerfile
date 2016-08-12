@@ -76,8 +76,6 @@ VOLUME /input
 
 VOLUME /results
 
-COPY BUSCO_v1.1b1.py /busco/BUSCO_v1.1b1
-
 WORKDIR /results
 
 CMD bash
