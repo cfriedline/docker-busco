@@ -83,7 +83,8 @@ CMD python3 $BUSCO_py \
 -c $BUSCO_c \
 -e $BUSCO_e \
 -sp $BUSCO_sp \
-$BUSCO_extra
+$BUSCO_extra && \
+cp -r $AUGUSTUS_CONFIG_PATH/species/$BUSCO_o /results
 
 # Clean up APT when done.
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
