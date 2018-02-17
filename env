@@ -1,9 +1,9 @@
 BUSCO_py=/busco/BUSCO_v1.22/BUSCO_v1.22.py
-BUSCO_o=lymantria_dispar
+BUSCO_o=lymantria_dispar_bombyx
 BUSCO_in=/input/genome.ctg.fasta
 BUSCO_l=/busco/arthropoda
 BUSCO_m=genome
 BUSCO_c=8
 BUSCO_e=0.001
-BUSCO_sp=heliconius_melpomene1
+BUSCO_sp=bombyx_mori
 BUSCO_extra=-f --long
