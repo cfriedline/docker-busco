@@ -3,7 +3,7 @@ FROM phusion/baseimage:0.9.19
 MAINTAINER Chris Friedline <cfriedline@vcu.edu>
 
 RUN \
-sed -i 's%archive.ubuntu.com%mirrors.gigenet.com/ubuntuarchive/%' /etc/apt/sources.list && \
+sed -i 's%archive.ubuntu.com%mirror.math.princeton.edu/pub/ubuntu%' /etc/apt/sources.list && \
 apt-get update && \
 apt-get install -y \
 curl \
@@ -54,17 +54,20 @@ cd /busco/hmmer* && \
 RUN \
 cd /busco && \
 git clone https://github.com/pezmaster31/bamtools.git && \
-cd bamtools && mkdir build && cd build && \
+cd bamtools && \
+git checkout -b v2.4.1 v2.4.1 && \
+mkdir build && cd build && \
 cmake .. && \
 make && \
 make install
 
 RUN \
-ln -s /usr/local/include/bamtools /usr/include/bamtools && \
-ln -s /usr/local/lib/bamtools/* /usr/local/lib && \
+ln -sf /usr/local/include/bamtools /usr/include/bamtools && \
+ln -sf /usr/local/lib/bamtools/* /usr/local/lib
+
+RUN \
 cd /busco/augustus* && \
 make
-
 
 ENV AUGUSTUS_CONFIG_PATH=/busco/augustus-3.2.2/config/
 ENV PATH=/busco/ncbi-blast-2.2.30+/bin:/busco/augustus-3.2.2/bin:$PATH
