@@ -28,7 +28,7 @@ RUN mkdir /busco
 
 RUN \
 cd /busco && \
-parallel --bar wget http://busco.ezlab.org/files/{}_buscos.tar.gz ::: \
+parallel --bar wget http://busco.ezlab.org/v1/files/{}_buscos.tar.gz ::: \
 arthropoda vertebrata fungi bacteria metazoa eukaryota
 
 
@@ -37,8 +37,8 @@ cd /busco && \
 parallel --bar wget ::: \
 ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/2.2.30/ncbi-blast-2.2.30+-x64-linux.tar.gz \
 http://eddylab.org/software/hmmer3/3.1b2/hmmer-3.1b2-linux-intel-x86_64.tar.gz \
-http://bioinf.uni-greifswald.de/augustus/binaries/augustus-3.2.2.tar.gz \
-http://busco.ezlab.org/files/BUSCO_v1.22.tar.gz
+http://bioinf.uni-greifswald.de/augustus/binaries/old/augustus-3.2.2.tar.gz \
+http://busco.ezlab.org/v1/files/BUSCO_v1.22.tar.gz
 
 
 RUN \
