@@ -1,9 +1,9 @@
 BUSCO_py=/busco/BUSCO_v1.22/BUSCO_v1.22.py
-BUSCO_o=gm_aedes
+BUSCO_o=gm_dros
 BUSCO_in=/input/genome.ctg.fasta
 BUSCO_l=/busco/arthropoda
 BUSCO_m=genome
 BUSCO_c=8
 BUSCO_e=0.001
-BUSCO_sp=aedes
+BUSCO_sp=fly
 BUSCO_extra=-f --long
